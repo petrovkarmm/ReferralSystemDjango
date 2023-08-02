@@ -1,6 +1,6 @@
 ![DjangoLogo](hammerSystems/assets/django-logo.png)
 
-Реализация тестово задания на позицию Backend Django Developer
+Реализация тестового задания на позицию Backend Django Developer
 
 Техническое задание:
 

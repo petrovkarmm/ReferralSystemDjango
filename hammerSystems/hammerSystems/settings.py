@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'hammerSystems.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hammersitedatabase',
-        'USER': 'leonid',
-        'PASSWORD': '12345',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }

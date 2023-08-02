@@ -44,3 +44,15 @@
 ![profile_first_user](hammerSystems/assets/profile_first_user.png)
 
 *Добавить самого себя так же не получится.
+
+## Установка
+
+1. pip install -r requirements.txt (установка необходимых библиотек)
+
+2. В файле hammerSystems/hammerSystems/setting.py указать данные локальной БД postgresql
+
+3. cd hammerSystems
+
+4. python manage.py migrate
+
+5. python manage.py runserver

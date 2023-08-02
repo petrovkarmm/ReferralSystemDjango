@@ -1,0 +1,20 @@
+{% extends 'api_auth_user/base.html' %}
+
+{% block title %}
+  Login user
+{% endblock %}
+
+{% block body %}
+    <div>
+        Номер телефона: {{ telephone }}
+    </div>
+    <form class="form_auth_style" action="#" method="post">
+        {% csrf_token %}
+        <label>Введите код из сообщения</label>
+        <input type="text" name="password" placeholder="Код из сообщения" required >
+        <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
+    </form>
+<p>
+    Токен, который пришел в виде СМС: {{ token }}
+</p>
+{% endblock %}

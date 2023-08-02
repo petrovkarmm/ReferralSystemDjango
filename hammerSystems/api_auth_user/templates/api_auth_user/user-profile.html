@@ -1,0 +1,36 @@
+{% extends 'api_auth_user/base.html' %}
+
+{% block title %}
+    User profile
+{% endblock %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <p>Добро пожаловать, {{ user.get_username }}. Спасибо за авторизацию.</p>
+{% endif %}
+{% if friends %}
+<div>Список приглашенных пользователей:</div>
+{% for friend in friends %}
+<p>{{ friend.inviting }}</p>
+{% endfor %}
+{% else %}
+<div>Нету добавленных пользователей по реферальной ссылке</div>
+{% endif %}
+{% if not user.profile.was_invited %}
+    <form class="form_auth_style" action="#" method="post">
+        {% csrf_token %}
+        <label>Введите код-приглашение другого пользователя</label>
+        <input type="text" name="invite_code" placeholder="Код-приглашение" required >
+        <button class="form_auth_button" type="submit" name="form_auth_submit">Отправить</button>
+    </form>
+{% else %}
+<div>Вы уже пользовались ссылкой от другого пользователя.</div>
+{% endif %}
+  <div>
+    <ul>
+      <li>
+        <a href="{% url 'api_auth_user:logout_user' %}">Выйти из профиля</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}

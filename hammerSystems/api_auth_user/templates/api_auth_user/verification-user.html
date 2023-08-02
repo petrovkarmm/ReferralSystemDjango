@@ -1,0 +1,14 @@
+{% extends 'api_auth_user/base.html' %}
+
+{% block title %}
+  Auth user
+{% endblock %}
+
+{% block body %}
+    <form class="form_auth_style" action="#" method="post">
+        {% csrf_token %}
+        <label>Введите Ваш номер телефона</label>
+        <input type="tel" name="auth_phone_number" placeholder="Номер телефона" required >
+        <button class="form_auth_button" type="submit" name="form_auth_submit">Получить токен</button>
+    </form>
+{% endblock %}

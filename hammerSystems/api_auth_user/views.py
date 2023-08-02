@@ -58,10 +58,8 @@ class VerificationUser(View):
         telephone = request.POST['auth_phone_number']
         # "Добавление номера телефона в словарь сессии"
         request.session['telephone'] = telephone
-        # Случайный токен, в качестве СМС кода использовать токен с print()
         token = auth_token_generate()
         request.session['token'] = token
-        print(token, 'pass')
         user = User.objects.filter(username=telephone).first()
         # Проверка наличие пользователя в БД, если отсутствует, создаем, где добавляем уникальный инвайт код
         # на связанную таблицу OneToOne Profile, в качестве логина - телефон, пароля - токен
@@ -95,7 +93,6 @@ class SignIn(View):
         telephone = request.session.get('telephone')
         # Производим аутентификацию использую токен из VerificationUser (должен совпадать с токеном из реквеста)
         user = authenticate(request, username=telephone, password=password)
-        print(user)
         if user is not None:
             login(request, user)
             return redirect(reverse("api_auth_user:profile_user"))
@@ -113,6 +110,7 @@ class ProfileUser(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         if not self.request.user.is_authenticated:
             return redirect(reverse("api_auth_user:verification_user"))
+        # Вывод профиля пользователя со всеми приглашенными.
         friends_list = Friends.objects.filter(invited=self.request.user).select_related('inviting')
         context = {
             'friends': friends_list
@@ -124,14 +122,17 @@ class ProfileUser(View):
         current_user = request.user
 
         if invite_code == current_user.profile.invite_code:
+            # 404 при попытке ввода собственного реферального кода
             raise Http404()
 
+        # 404 при попытке ввода несуществующего реферального кода
         invited_user_id = get_object_or_404(Profile, invite_code=invite_code)
 
-
+        # Добавление в "друзья" текущего юзера и связанного с реферальным кодом юзера
         Friends.objects.create(
             inviting=request.user, invited_id=invited_user_id.user_id
         )
+        # Обновление флага пользователя о том, что он использовал чужой код
         current_user.profile.was_invited = True
         current_user.profile.save()
 

@@ -21,9 +21,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Friends',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('invited', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invinting', to=settings.AUTH_USER_MODEL)),
-                ('inviting', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invited', to=settings.AUTH_USER_MODEL)),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
+                ('invited', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                              related_name='invinting',
+                                              to=settings.AUTH_USER_MODEL)),
+                ('inviting', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                               related_name='invited',
+                                               to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

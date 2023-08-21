@@ -9,7 +9,11 @@ class Profile(models.Model):
 
 
 class Friends(models.Model):
-    inviting = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invited')
+    inviting = models.ForeignKey(User,
+                                 on_delete=models.CASCADE,
+                                 related_name='invited')
     # кого пригласили
-    invited = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invinting')
+    invited = models.ForeignKey(User,
+                                on_delete=models.CASCADE,
+                                related_name='invinting')
     # кто пригласил
